@@ -5,7 +5,18 @@ import matplotlib.pyplot as plt
 import math
 import streamlit as st
 
-matplotlib.rcParams['font.family'] = 'Hiragino Sans'
+import matplotlib.font_manager as fm
+import urllib.request
+import os
+
+font_path = "/tmp/NotoSansJP-Regular.ttf"
+if not os.path.exists(font_path):
+    urllib.request.urlretrieve(
+        "https://github.com/googlefonts/noto-cjk/raw/main/Sans/OTF/Japanese/NotoSansCJKjp-Regular.otf",
+        font_path
+    )
+fm.fontManager.addfont(font_path)
+matplotlib.rcParams['font.family'] = fm.FontProperties(fname=font_path).get_name()
 
 st.set_page_config(
     page_title="ホテル清掃シフト最適化ダッシュボード",
